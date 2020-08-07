@@ -18,12 +18,6 @@ final class FileHashComputerTest extends AbstractKernelTestCase
      */
     private $fileHashComputer;
 
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-        $this->fileHashComputer = self::$container->get(FileHashComputer::class);
-    }
-
     /**
      * @dataProvider provideDataForIdenticalHash()
      */
@@ -45,5 +39,10 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     {
         $this->expectException(ShouldNotHappenException::class);
         $this->fileHashComputer->compute(new SmartFileInfo(__DIR__ . '/Source/file.xml'));
+    }
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+        $this->fileHashComputer = self::$container->get(FileHashComputer::class);
     }
 }

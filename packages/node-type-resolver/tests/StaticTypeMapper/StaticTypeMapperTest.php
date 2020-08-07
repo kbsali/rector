@@ -25,13 +25,6 @@ final class StaticTypeMapperTest extends AbstractKernelTestCase
      */
     private $staticTypeMapper;
 
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->staticTypeMapper = self::$container->get(StaticTypeMapper::class);
-    }
-
     /**
      * @dataProvider provideDataForMapPHPStanPhpDocTypeNodeToPHPStanType()
      */
@@ -73,5 +66,11 @@ final class StaticTypeMapperTest extends AbstractKernelTestCase
 
         $phpStanDocTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($mixedType);
         $this->assertInstanceOf(IdentifierTypeNode::class, $phpStanDocTypeNode);
+    }
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+
+        $this->staticTypeMapper = self::$container->get(StaticTypeMapper::class);
     }
 }

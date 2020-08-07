@@ -20,14 +20,6 @@ final class FunctionMethodAndClassNodeVisitorTest extends AbstractNodeVisitorTes
      */
     private $functionMethodAndClassNodeVisitor;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->bootKernel(RectorKernel::class);
-        $this->functionMethodAndClassNodeVisitor = self::$container->get(FunctionMethodAndClassNodeVisitor::class);
-    }
-
     public function testMethodName(): void
     {
         $parsedAttributes = $this->parseFileToAttribute(__DIR__ . '/Fixture/simple.php.inc', AttributeKey::METHOD_NAME);
@@ -83,6 +75,13 @@ final class FunctionMethodAndClassNodeVisitorTest extends AbstractNodeVisitorTes
         // method in the anonymous class has no class name
         $anoymousClassMethodAttributes = $parsedAttributes[8];
         $this->assertNull($anoymousClassMethodAttributes[AttributeKey::CLASS_NAME]);
+    }
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->bootKernel(RectorKernel::class);
+        $this->functionMethodAndClassNodeVisitor = self::$container->get(FunctionMethodAndClassNodeVisitor::class);
     }
 
     /**

@@ -27,12 +27,6 @@ final class TypeNodeAnalyzerTest extends AbstractKernelTestCase
      */
     private $typeNodeAnalyzer;
 
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-        $this->typeNodeAnalyzer = self::$container->get(TypeNodeAnalyzer::class);
-    }
-
     /**
      * @dataProvider provideDataForArrayType()
      */
@@ -62,5 +56,10 @@ final class TypeNodeAnalyzerTest extends AbstractKernelTestCase
     {
         yield [new IntersectionTypeNode([new IdentifierTypeNode(self::INT)]), true];
         yield [new IntersectionTypeNode([new NullableTypeNode(new IdentifierTypeNode(self::INT))]), false];
+    }
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+        $this->typeNodeAnalyzer = self::$container->get(TypeNodeAnalyzer::class);
     }
 }

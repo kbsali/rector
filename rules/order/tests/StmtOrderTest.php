@@ -34,14 +34,6 @@ final class StmtOrderTest extends AbstractKernelTestCase
      */
     private $nodeNameResolver;
 
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->stmtOrder = self::$container->get(StmtOrder::class);
-        $this->nodeNameResolver = self::$container->get(NodeNameResolver::class);
-    }
-
     public function dataProvider(): Iterator
     {
         yield [
@@ -100,6 +92,13 @@ final class StmtOrderTest extends AbstractKernelTestCase
             $this->nodeNameResolver->getName($expectedClass->stmts[2]),
             $this->nodeNameResolver->getName($classLike->stmts[2])
         );
+    }
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+
+        $this->stmtOrder = self::$container->get(StmtOrder::class);
+        $this->nodeNameResolver = self::$container->get(NodeNameResolver::class);
     }
 
     private function getTestClassNode(): Class_
