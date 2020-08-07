@@ -24,13 +24,6 @@ final class FilesFinderTest extends AbstractKernelTestCase
      */
     private $smartFileSystem;
 
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-        $this->filesFinder = self::$container->get(FilesFinder::class);
-        $this->smartFileSystem = self::$container->get(SmartFileSystem::class);
-    }
-
     /**
      * @dataProvider provideData()
      */
@@ -89,5 +82,11 @@ final class FilesFinderTest extends AbstractKernelTestCase
         $this->assertCount(1, $foundFiles);
 
         FileSystem::delete($filename);
+    }
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+        $this->filesFinder = self::$container->get(FilesFinder::class);
+        $this->smartFileSystem = self::$container->get(SmartFileSystem::class);
     }
 }

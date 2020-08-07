@@ -29,14 +29,6 @@ final class BetterNodeFinderTest extends AbstractKernelTestCase
      */
     private $betterNodeFinder;
 
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->betterNodeFinder = self::$container->get(BetterNodeFinder::class);
-        $this->nodes = $this->createNodesFromFile(__DIR__ . '/Source/SomeFile.php.inc');
-    }
-
     public function testFindFirstAncestorInstanceOf(): void
     {
         $variable = $this->betterNodeFinder->findFirstInstanceOf($this->nodes, Variable::class);
@@ -59,6 +51,13 @@ final class BetterNodeFinderTest extends AbstractKernelTestCase
         $variableNode = $this->betterNodeFinder->findFirstInstanceOf($this->nodes, Variable::class);
 
         $this->assertNull($this->betterNodeFinder->findFirstAncestorInstanceOf($variableNode, Array_::class));
+    }
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+
+        $this->betterNodeFinder = self::$container->get(BetterNodeFinder::class);
+        $this->nodes = $this->createNodesFromFile(__DIR__ . '/Source/SomeFile.php.inc');
     }
 
     /**

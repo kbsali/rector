@@ -48,6 +48,21 @@ final class RectorGeneratorTest extends AbstractKernelTestCase
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+    public function test(): void
+    {
+        $configuration = $this->createConfiguration();
+        $templateFileInfos = $this->templateFinder->find($configuration);
+        $templateVariables = $this->templateVariablesFactory->createFromConfiguration($configuration);
+
+        $this->fileGenerator->generateFiles(
+            $templateFileInfos,
+            $templateVariables,
+            $configuration,
+            self::DESTINATION_DIRECTORY
+        );
+
+        $this->assertDirectoryEquals(__DIR__ . '/Fixture/expected', self::DESTINATION_DIRECTORY);
+    }
 
     protected function setUp(): void
     {
@@ -65,22 +80,6 @@ final class RectorGeneratorTest extends AbstractKernelTestCase
     {
         // cleanup temporary data
         $this->smartFileSystem->remove(self::DESTINATION_DIRECTORY);
-    }
-
-    public function test(): void
-    {
-        $configuration = $this->createConfiguration();
-        $templateFileInfos = $this->templateFinder->find($configuration);
-        $templateVariables = $this->templateVariablesFactory->createFromConfiguration($configuration);
-
-        $this->fileGenerator->generateFiles(
-            $templateFileInfos,
-            $templateVariables,
-            $configuration,
-            self::DESTINATION_DIRECTORY
-        );
-
-        $this->assertDirectoryEquals(__DIR__ . '/Fixture/expected', self::DESTINATION_DIRECTORY);
     }
 
     private function createConfiguration(): Configuration

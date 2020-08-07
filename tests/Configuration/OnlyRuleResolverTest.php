@@ -18,12 +18,6 @@ final class OnlyRuleResolverTest extends AbstractKernelTestCase
      */
     private $onlyRuleResolver;
 
-    protected function setUp(): void
-    {
-        $this->bootKernelWithConfigs(RectorKernel::class, [__DIR__ . '/Source/config/some_config.yaml']);
-        $this->onlyRuleResolver = self::$container->get(OnlyRuleResolver::class);
-    }
-
     /**
      * @dataProvider provideData()
      */
@@ -43,5 +37,10 @@ final class OnlyRuleResolverTest extends AbstractKernelTestCase
         // miss-formats
         yield ['\\' . ListEachRector::class, ListEachRector::class];
         yield ['RectorCoreTestsConfigurationSourceCustomLocalRector', CustomLocalRector::class];
+    }
+    protected function setUp(): void
+    {
+        $this->bootKernelWithConfigs(RectorKernel::class, [__DIR__ . '/Source/config/some_config.yaml']);
+        $this->onlyRuleResolver = self::$container->get(OnlyRuleResolver::class);
     }
 }
