@@ -26,6 +26,13 @@ final class AttributeAwareNodeFactoryTest extends AbstractKernelTestCase
      */
     private $attributeAwareNodeFactory;
 
+    protected function setUp(): void
+    {
+        self::bootKernel(RectorKernel::class);
+
+        $this->attributeAwareNodeFactory = static::$container->get(AttributeAwareNodeFactory::class);
+    }
+
     public function testPhpDocNodeAndChildren(): void
     {
         $phpDocNode = $this->createSomeTextDocNode();
@@ -74,12 +81,6 @@ final class AttributeAwareNodeFactoryTest extends AbstractKernelTestCase
         $returnedNode = $this->attributeAwareNodeFactory->createFromNode($attributeAwarePhpDocNode, '');
 
         $this->assertSame($returnedNode, $attributeAwarePhpDocNode);
-    }
-    protected function setUp(): void
-    {
-        self::bootKernel(RectorKernel::class);
-
-        $this->attributeAwareNodeFactory = static::$container->get(AttributeAwareNodeFactory::class);
     }
 
     /**

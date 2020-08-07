@@ -21,6 +21,18 @@ final class FormatPerservingPrinterTest extends AbstractKernelTestCase
      * @var FormatPerservingPrinter
      */
     private $formatPerservingPrinter;
+
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+        $this->formatPerservingPrinter = self::$container->get(FormatPerservingPrinter::class);
+    }
+
+    protected function tearDown(): void
+    {
+        FileSystem::delete(__DIR__ . '/Fixture');
+    }
+
     public function testFileModeIsPreserved(): void
     {
         mkdir(__DIR__ . '/Fixture');
@@ -33,16 +45,5 @@ final class FormatPerservingPrinterTest extends AbstractKernelTestCase
         $this->formatPerservingPrinter->printToFile($fileInfo, [], [], []);
 
         $this->assertSame(self::EXPECTED_FILEMOD, fileperms(__DIR__ . '/Fixture/file.php') & 0777);
-    }
-
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-        $this->formatPerservingPrinter = self::$container->get(FormatPerservingPrinter::class);
-    }
-
-    protected function tearDown(): void
-    {
-        FileSystem::delete(__DIR__ . '/Fixture');
     }
 }

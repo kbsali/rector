@@ -15,6 +15,11 @@ final class EregToPcreTransformerTest extends TestCase
      */
     private $eregToPcreTransformer;
 
+    protected function setUp(): void
+    {
+        $this->eregToPcreTransformer = new EregToPcreTransformer();
+    }
+
     /**
      * @dataProvider provideDataDropping()
      * @dataProvider provideDataCaseSensitive()
@@ -65,9 +70,5 @@ final class EregToPcreTransformerTest extends TestCase
             '^(http(s?):\/\/|ftp:\/\/)*([[:alpha:]][-[:alnum:]]*[[:alnum:]])(\.[[:alpha:]][-[:alnum:]]*[[:alpha:]])+(/[[:alpha:]][-[:alnum:]]*[[:alnum:]])*(\/?)(/[[:alpha:]][-[:alnum:]]*\.[[:alpha:]]{3,5})?(\?([[:alnum:]][-_%[:alnum:]]*=[-_%[:alnum:]]+)(&([[:alnum:]][-_%[:alnum:]]*=[-_%[:alnum:]]+))*)?$',
             '#^(http(s?):\/\/|ftp:\/\/)*([[:alpha:]][\-[:alnum:]]*[[:alnum:]])(\.[[:alpha:]][\-[:alnum:]]*[[:alpha:]])+(\/[[:alpha:]][\-[:alnum:]]*[[:alnum:]])*(\/?)(\/[[:alpha:]][\-[:alnum:]]*\.[[:alpha:]]{3,5})?(\?([[:alnum:]][\-_%[:alnum:]]*=[\-_%[:alnum:]]+)(&([[:alnum:]][\-_%[:alnum:]]*=[\-_%[:alnum:]]+))*)?$#m',
         ];
-    }
-    protected function setUp(): void
-    {
-        $this->eregToPcreTransformer = new EregToPcreTransformer();
     }
 }

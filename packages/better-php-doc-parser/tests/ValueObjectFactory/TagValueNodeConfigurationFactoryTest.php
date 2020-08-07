@@ -15,6 +15,11 @@ final class TagValueNodeConfigurationFactoryTest extends TestCase
      */
     private $tagValueNodeConfigurationFactory;
 
+    protected function setUp(): void
+    {
+        $this->tagValueNodeConfigurationFactory = new TagValueNodeConfigurationFactory();
+    }
+
     public function test(): void
     {
         $tagValueNodeConfiguration = $this->tagValueNodeConfigurationFactory->createFromOriginalContent(
@@ -23,9 +28,5 @@ final class TagValueNodeConfigurationFactoryTest extends TestCase
         );
 
         $this->assertSame('=', $tagValueNodeConfiguration->getArrayEqualSign());
-    }
-    protected function setUp(): void
-    {
-        $this->tagValueNodeConfigurationFactory = new TagValueNodeConfigurationFactory();
     }
 }

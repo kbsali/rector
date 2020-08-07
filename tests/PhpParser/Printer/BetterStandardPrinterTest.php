@@ -24,6 +24,12 @@ final class BetterStandardPrinterTest extends AbstractKernelTestCase
      */
     private $betterStandardPrinter;
 
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+        $this->betterStandardPrinter = self::$container->get(BetterStandardPrinter::class);
+    }
+
     public function testAddingCommentOnSomeNodesFail(): void
     {
         $methodCall = new MethodCall(new Variable('this'), 'run');
@@ -76,10 +82,5 @@ final class BetterStandardPrinterTest extends AbstractKernelTestCase
 
         $printed = $this->betterStandardPrinter->print(new Yield_());
         $this->assertSame('yield', $printed);
-    }
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-        $this->betterStandardPrinter = self::$container->get(BetterStandardPrinter::class);
     }
 }
