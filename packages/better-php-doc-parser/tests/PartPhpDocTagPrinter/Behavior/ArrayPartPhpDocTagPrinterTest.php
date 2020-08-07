@@ -19,6 +19,11 @@ final class ArrayPartPhpDocTagPrinterTest extends TestCase
      */
     private $phpDocTagNodeWithArrayPrinter;
 
+    protected function setUp(): void
+    {
+        $this->phpDocTagNodeWithArrayPrinter = new PhpDocTagNodeWithArrayPrinter();
+    }
+
     /**
      * @dataProvider provideData()
      */
@@ -47,9 +52,5 @@ final class ArrayPartPhpDocTagPrinterTest extends TestCase
         yield [['\John'], 'name', 'name={"\John"}'];
 
         yield [['0', '3023', '3610'], 'choices', 'choices={"0", "3023", "3610"}'];
-    }
-    protected function setUp(): void
-    {
-        $this->phpDocTagNodeWithArrayPrinter = new PhpDocTagNodeWithArrayPrinter();
     }
 }

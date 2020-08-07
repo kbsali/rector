@@ -21,6 +21,12 @@ final class ValueResolverTest extends AbstractKernelTestCase
      */
     private $valueResolver;
 
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+        $this->valueResolver = self::$container->get(ValueResolver::class);
+    }
+
     /**
      * @param mixed $expected
      * @dataProvider dataProvider
@@ -47,10 +53,5 @@ final class ValueResolverTest extends AbstractKernelTestCase
         yield [null, $builderFactory->var('foo')];
         yield [2, new Plus($builderFactory->val(1), $builderFactory->val(1))];
         yield [null, new Plus($builderFactory->val(1), $builderFactory->var('foo'))];
-    }
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-        $this->valueResolver = self::$container->get(ValueResolver::class);
     }
 }

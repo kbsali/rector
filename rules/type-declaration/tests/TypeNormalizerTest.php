@@ -27,6 +27,14 @@ final class TypeNormalizerTest extends AbstractKernelTestCase
      */
     private $staticTypeMapper;
 
+    protected function setUp(): void
+    {
+        self::bootKernel(RectorKernel::class);
+
+        $this->typeNormalizer = self::$container->get(TypeNormalizer::class);
+        $this->staticTypeMapper = self::$container->get(StaticTypeMapper::class);
+    }
+
     /**
      * @dataProvider provideDataNormalizeArrayOfUnionToUnionArray()
      */
@@ -53,12 +61,5 @@ final class TypeNormalizerTest extends AbstractKernelTestCase
 
         $evenMoreNestedArrayType = new ArrayType(new MixedType(), $moreNestedArrayType);
         yield [$evenMoreNestedArrayType, 'int[][][]|string[][][]'];
-    }
-    protected function setUp(): void
-    {
-        self::bootKernel(RectorKernel::class);
-
-        $this->typeNormalizer = self::$container->get(TypeNormalizer::class);
-        $this->staticTypeMapper = self::$container->get(StaticTypeMapper::class);
     }
 }

@@ -20,6 +20,13 @@ final class NodeFactoryTest extends AbstractKernelTestCase
      */
     private $nodeFactory;
 
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+
+        $this->nodeFactory = self::$container->get(NodeFactory::class);
+    }
+
     /**
      * @param mixed[] $inputArray
      * @dataProvider provideDataForArray()
@@ -42,11 +49,5 @@ final class NodeFactoryTest extends AbstractKernelTestCase
         $array->items[] = new ArrayItem(new LNumber(1), new String_('a'));
 
         yield [['a' => 1], $array];
-    }
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->nodeFactory = self::$container->get(NodeFactory::class);
     }
 }

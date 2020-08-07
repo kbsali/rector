@@ -43,6 +43,17 @@ final class PhpDocInfoTest extends AbstractKernelTestCase
      */
     private $smartFileSystem;
 
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+
+        $this->phpDocInfoPrinter = self::$container->get(PhpDocInfoPrinter::class);
+        $this->docBlockManipulator = self::$container->get(DocBlockManipulator::class);
+        $this->smartFileSystem = self::$container->get(SmartFileSystem::class);
+
+        $this->phpDocInfo = $this->createPhpDocInfoFromFile(__DIR__ . '/Source/doc.txt');
+    }
+
     public function testGetTagsByName(): void
     {
         $paramTags = $this->phpDocInfo->getTagsByName('param');
@@ -71,16 +82,6 @@ final class PhpDocInfoTest extends AbstractKernelTestCase
             __DIR__ . '/Source/expected-replaced-tag.txt',
             $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo)
         );
-    }
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->phpDocInfoPrinter = self::$container->get(PhpDocInfoPrinter::class);
-        $this->docBlockManipulator = self::$container->get(DocBlockManipulator::class);
-        $this->smartFileSystem = self::$container->get(SmartFileSystem::class);
-
-        $this->phpDocInfo = $this->createPhpDocInfoFromFile(__DIR__ . '/Source/doc.txt');
     }
 
     private function createPhpDocInfoFromFile(string $path): PhpDocInfo

@@ -16,6 +16,12 @@ final class PhpDocTagsFinderTest extends AbstractKernelTestCase
      */
     private $phpDocTagsFinder;
 
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+        $this->phpDocTagsFinder = self::$container->get(PhpDocTagsFinder::class);
+    }
+
     public function test(): void
     {
         $docContent = FileSystem::read(__DIR__ . '/Source/doc_block_throws.txt');
@@ -24,10 +30,5 @@ final class PhpDocTagsFinderTest extends AbstractKernelTestCase
 
         $this->assertCount(3, $throwsTags);
         $this->assertSame(['A', 'B', 'C'], $throwsTags);
-    }
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-        $this->phpDocTagsFinder = self::$container->get(PhpDocTagsFinder::class);
     }
 }

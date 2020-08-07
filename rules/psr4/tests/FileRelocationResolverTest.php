@@ -18,6 +18,13 @@ final class FileRelocationResolverTest extends AbstractKernelTestCase
      */
     private $fileRelocationResolver;
 
+    protected function setUp(): void
+    {
+        $this->bootKernel(RectorKernel::class);
+
+        $this->fileRelocationResolver = self::$container->get(FileRelocationResolver::class);
+    }
+
     /**
      * @dataProvider provideData()
      */
@@ -42,11 +49,5 @@ final class FileRelocationResolverTest extends AbstractKernelTestCase
             'Rector\PSR10\Tests\Source\SomeFile',
             'rules/psr4/tests/Source/SomeFile.php',
         ];
-    }
-    protected function setUp(): void
-    {
-        $this->bootKernel(RectorKernel::class);
-
-        $this->fileRelocationResolver = self::$container->get(FileRelocationResolver::class);
     }
 }
